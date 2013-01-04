@@ -1,12 +1,15 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
+  "name": "best-of-2012",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node app"
   },
   "dependencies": {
     "express": "3.0.0rc4",
-    "jade": "*"
+    "jade": "*",
+    "consolidate": "0.7.0",
+    "mongoose": "3.5.3",
+    "underscore": "1.4.3"
   }
 }
