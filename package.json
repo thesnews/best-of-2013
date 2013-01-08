@@ -1,9 +1,33 @@
 {
-  "name": "best-of-2012",
+  "name": "bestof-2013",
+  "description": "Best Of MSU 2013",
   "version": "1.0.0",
-  "private": true,
+  "homepage": "https://github.com/thesnews/best-of-2013",
+  "author": {
+    "name": "Mike Joseph",
+    "email": "mike.joseph5@gmail.com",
+    "url": "http://statenews.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/thesnews/best-of-2013.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thesnews/best-of-2013/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/thesnews/best-of-2013/blob/master/LICENSE-MIT"
+    }
+  ],
+  "main": ".",
+  "engines": {
+    "node": ">= 0.6.0"
+  },
   "scripts": {
-    "start": "node app"
+    "start": "node app.js",
+    "test": "grunt test"
   },
   "dependencies": {
     "express": "3.0.0rc4",
@@ -12,5 +36,9 @@
     "swig": "0.13.4",
     "mongoose": "3.5.3",
     "underscore": "1.4.3"
-  }
+  },
+  "devDependencies": {
+    "grunt": "~0.3.17"
+  },
+  "keywords": []
 }
