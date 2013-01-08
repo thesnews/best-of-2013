@@ -10,8 +10,10 @@ module.exports = function(grunt) {
       files: ['grunt.js', 'routes/**/*.js', 'test/**/*.js']
     },
     watch: {
-      files: '<config:lint.files>',
-      tasks: 'default'
+        less: {
+            files: ["public/stylesheets/src/**/*.less"],
+            tasks: 'lessc'
+        }
     },
     jshint: {
       options: {
@@ -30,10 +32,22 @@ module.exports = function(grunt) {
       globals: {
         exports: true
       }
+    },
+
+    less: {
+      development: {
+        files: {
+          "public/stylesheets/master-dist.css": "public/stylesheets/src/master.less"
+        }
+      }
     }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-less');
+
   // Default task.
   grunt.registerTask('default', 'lint test');
+  grunt.registerTask('release', 'lint test less');
+  grunt.registerTask('lessc', 'less');
 
 };

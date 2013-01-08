@@ -6,8 +6,10 @@
 var express = require('express'),
     http = require('http'),
     path = require('path'),
-    cons = require('consolidate');
-    conf = require('./config');
+    cons = require('consolidate'),
+    swig = require("swig"),
+    conf = require('./config'),
+    mongoose = require('mongoose');
 
 
 //console.log(config);
@@ -15,6 +17,17 @@ var express = require('express'),
 var app = express();
 
 app.engine('html', cons.swig);
+
+swig.init({
+    root: __dirname + '/views',
+    autoescape: false,
+    cache: (function() {
+        if( process.env.NODE_ENV == 'production' ) {
+            return true;
+        }
+        return false;
+    })()
+});
 
 app.configure(function(){
   app.set('port', conf.port || process.env.PORT || 3000);
@@ -34,7 +47,16 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+mongoose.connect('mongodb://localhost/bestof2013');
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+
+conf.dbh = db;
+app.config = conf;
+
 require('./routes/index')(app);
+require('./routes/vote')(app);
+require('./routes/widget')(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
