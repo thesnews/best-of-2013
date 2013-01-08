@@ -1,0 +1,27 @@
+(function($) {
+    $(function() {
+        var token = "{{token}}";
+        var groups = {{categories|json_encode}};
+
+        var source   = $("#entry-template").html();
+        var template = Handlebars.compile(source);
+
+        var context = {groups:groups};
+        var html = template(context);
+        $('#bestof-widget').html(html);
+
+        $('#bestof-widget').on('change', 'select[data-field="selection"]', function(e) {
+            if( $(this).val() != 'writein' ) {
+                return;
+            }
+            var inpt = $('<input>')
+                .attr('type', 'text')
+                .attr('data-field', 'writein')
+                .attr('data-category', $(this).attr('data-category'))
+                .attr('placeholder', 'Type something');
+
+            $(this).hide();
+            inpt.insertAfter($(this));
+        });
+    });
+})(jQuery);
